@@ -1,0 +1,112 @@
+﻿<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+	<meta charset=utf-8>
+	<style>
+	html { overflow: auto; cursor: default; height: 100%; }
+	body { margin: 0; padding: 0; cursor: default; height: 100%; }
+	.message { font: 28px Arial; line-height: 1.4em; }
+	.break { font: bold 32px Arial; }
+	.timer, .timerblack, .timergreen { font: bold 64px Arial; color: red; }
+	.timerblack { color: black; }
+	.timergreen { color: green; }
+	.endofbreak { position: absolute;  bottom: 2em; width: 100%; text-align: center; }
+	.newtimer { font: 17px Arial; padding: 0.25em 0em; }
+	.info { font: 12px Arial; }
+	a, a:visited { color: blue; }
+	</style>
+</head>
+<body onselectstart="return false;">
+
+<table width=100% height=100% cellspacing=0 cellpadding=0 border=0>
+<tr><td align=center valign=middle>
+
+	<div class=message id=message1>
+		Stand up and make a <span class=break>5 minute break</span> away from your computer!<br>
+		Otherwise your eyes and body will hurt...
+	</div>
+
+	<div class=message id=message2 style="display: none;">
+		5 minutes have passed, <span class=break>the break is over!</span><br>
+		You can now sit back at your computer.
+	</div>
+
+	<br><br>
+
+	<div class=timer id=timer></div>
+
+</td></tr>
+</table>
+
+<div class=endofbreak>
+
+	<div>
+		<input type=button class=newtimer id=newtimer value="Start new timer" style="visibility: hidden;" 
+			onclick="window.external.StartNewTimer()">
+	</div>
+
+	<br><br>
+
+	<div class=info id=FiveMoreMinutes>
+		Close window, I need <a href="javascript:void(0)" onclick="window.external.FiveMoreMinutes()">5 more minutes</a>.
+	</div>
+
+</div>
+
+<script>
+
+	var TIMER = 5;
+
+	function countdown()
+	{
+		__current--;
+		if (__current <= 0)
+			__endofbreak = true;
+
+		updatetimer();
+
+		if (__endofbreak)
+			document.getElementById("timer").className = "timergreen";
+		if (__current == 0)
+			document.getElementById("timer").className = "timerblack";
+		if (__current < 0) {
+			document.getElementById("message1").style.display = "none";
+			document.getElementById("message2").style.display = "block";
+			document.getElementById("newtimer").style.visibility = "visible";
+			document.getElementById("FiveMoreMinutes").style.visibility = "hidden";
+			setbackground(2);
+		}
+	}
+
+	function updatetimer()
+	{
+		var minutes = Math.floor(Math.abs(__current) / 60);
+		var seconds = Math.abs(__current) % 60;
+		if (minutes < 10)
+			minutes = "0"+String(minutes);
+		if (seconds < 10)
+			seconds = "0"+String(seconds);
+
+		var plus = "";
+		document.getElementById("timer").innerHTML = minutes+":"+seconds;
+	}
+
+	function setbackground(n)
+	{
+		if (window.screen.width < 1920) {
+			document.body.style.background = 'url("background'+n+'.jpg") center center no-repeat';
+		} else {
+			document.body.style.background = 'url("background'+n+'.jpg") bottom right no-repeat';
+		}
+	}
+
+	var __current = TIMER * 60; // in seconds
+	var __endofbreak = false;
+	setbackground(1);
+	updatetimer();
+	window.setInterval(countdown, 1000);
+
+</script>
+
+</body>
+</html>

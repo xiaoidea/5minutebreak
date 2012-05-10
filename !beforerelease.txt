@@ -1,0 +1,5 @@
+Change version in:
+- Help_en.html
+- Help_pl.html
+- winmain.cpp (#define VERSION 105)
+- resource.rc (string table - version 1.0.0.5)

@@ -1,0 +1,172 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectName>5 Minute Break</ProjectName>
+    <ProjectGuid>{B44F8DCB-E61D-45C0-8815-3396A8BAE7CC}</ProjectGuid>
+    <RootNamespace>My5minutebreak</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseOfAtl>Static</UseOfAtl>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>false</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseOfAtl>Dynamic</UseOfAtl>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.40219.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(Configuration)\</IntDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Release\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Release\</IntDir>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
+    <IncludePath Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">D:\5minutebreak\wtl81\Include;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <PreBuildEvent>
+      <Command>$(ProjectDir)kill_dev_exe.bat</Command>
+    </PreBuildEvent>
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+    <PostBuildEvent>
+      <Command>copy $(ProjectDir)Alarm_en.html $(TargetDir)Alarm_en.html
+copy $(ProjectDir)Alarm_pl.html $(TargetDir)Alarm_pl.html
+copy $(ProjectDir)background1.jpg $(TargetDir)background1.jpg
+copy $(ProjectDir)background2.jpg $(TargetDir)background2.jpg
+
+</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <PreBuildEvent>
+      <Command>$(ProjectDir)kill_dev_exe.bat</Command>
+    </PreBuildEvent>
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <IntrinsicFunctions>false</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;STRICT;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <FunctionLevelLinking>false</FunctionLevelLinking>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <OptimizeReferences>
+      </OptimizeReferences>
+      <EnableCOMDATFolding>
+      </EnableCOMDATFolding>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+    <PostBuildEvent>
+      <Command>copy $(ProjectDir)Alarm_en.html $(TargetDir)Alarm_en.html
+copy $(ProjectDir)Alarm_pl.html $(TargetDir)Alarm_pl.html
+copy $(ProjectDir)background1.jpg $(TargetDir)background1.jpg
+copy $(ProjectDir)background2.jpg $(TargetDir)background2.jpg
+
+del "$(TargetDir)5 Minute Break Dev.exe"
+rename "$(TargetDir)5 Minute Break.exe" "5 Minute Break Dev.exe"
+</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <None Include="kill_dev_exe.bat" />
+    <None Include="icons\alarm.ico" />
+    <None Include="icons\alarmblue.ico" />
+    <None Include="icons\alarmred.ico" />
+    <None Include="background1.jpg" />
+    <None Include="background2.jpg" />
+    <None Include=".hgignore" />
+    <CustomBuild Include="Alarm_en.html">
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(Outputs)</Outputs>
+      <SubType>Designer</SubType>
+    </CustomBuild>
+    <None Include="Alarm_pl.html" />
+    <None Include="Help_en.html" />
+    <None Include="Help_pl.html" />
+    <None Include="todo.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="stdafx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="winmain.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="AlarmFrame.h" />
+    <ClInclude Include="WebBrowser\ClickEvents.h" />
+    <ClInclude Include="debug.h" />
+    <ClInclude Include="WebBrowser\DocHostUIHandlerDispatch.h" />
+    <ClInclude Include="ExecutablePath.h" />
+    <ClInclude Include="WebBrowser\FullScreenFrame.h" />
+    <ClInclude Include="HelpFrame.h" />
+    <ClInclude Include="WebBrowser\HTMLOMWindowServices.h" />
+    <ClInclude Include="WebBrowser\IEVersion.h" />
+    <ClInclude Include="WebBrowser\InternetFeatures.h" />
+    <ClInclude Include="WebBrowser\InternetSecurityManager.h" />
+    <ClInclude Include="WebBrowser\keycodes.h" />
+    <ClInclude Include="Language.h" />
+    <ClInclude Include="MainFrame.h" />
+    <ClInclude Include="WebBrowser\OleClientSite.h" />
+    <ClInclude Include="WebBrowser\OleInPlaceFrame.h" />
+    <ClInclude Include="WebBrowser\OleInPlaceSite.h" />
+    <ClInclude Include="Process.h" />
+    <ClInclude Include="Registry.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="RunAtStartup.h" />
+    <ClInclude Include="WebBrowser\ServiceProvider.h" />
+    <ClInclude Include="SingleInstance.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="WebBrowser\SubmitEvents.h" />
+    <ClInclude Include="TrayIcon.h" />
+    <ClInclude Include="WebBrowser\WebBrowserFrame.h" />
+    <ClInclude Include="WebBrowser\WebBrowserFrameInterface.h" />
+    <ClInclude Include="WinVersion.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="resource.rc" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

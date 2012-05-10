@@ -1,0 +1,63 @@
+﻿- opcja że gdy gramy w grę, to żeby pauzował alarm? Wykryć
+czy gra w grę można po tym, że zmieniła się rozdzielczość ekranu.
+
+- w oknie alarmowym dać przycisk "I need 5 more minutes",
+kliknięcie zamyka okno i ustawia timer na kolejne 5 minut.
+
+- mozliwosc zmiany ikony w trayu, jak ma niebieska skorke
+w windowsie to niebieski ikona zegara jest slabo widoczna,
+w menu kontekstowym "Icon colors" a w subtimer: "Blue & Red",
+"Green & red", "Yellow & Red".
+
+- dodać w menu kontekstowym "Options", które otwiera okno
+z opcjami. Tam dać też opcję "Always set the timer (when running
+on startup, when clicking 'No thank you, close this window')."
+
+--------------
+
++ w oknie alarmowym przyciski do zamknięcia okna (albo niech
+kliknięcie gdziekolwiek zamyka okno) oraz do odpalenia
+kolejnego timera "Start new 1 hour countdown".
+
+- (nie) wyświetlanie ile minut pozostało, zobacz ntray > TrayTestWtl,
+może zamiast ikony liczba minut jaka pozostała? Albo na ikona
+jako tło dla tej liczby. Na początek zróbmy zwykłą ikonę, a
+później się pomyśli nad tym bajerem.
+
++ klikanie LPM ustawia timer na 1h, można też dodać menu
+pod prawym przyciskiem gdzie możemy wybrać różne wartości:
+5m, 15m, 30m, 1h, 2h.
+
+- (nie) można w menu dodać jako opcję żeby obok ikony wyświetlał
+liczbę minut do przerwy.
+
++ w Alarm.html wykryc rozdzielczosc i w zaleznosci ustawiac
+inne ulozenie tla, albo zwykle "top left", gdy 1680x1050 "center" (?),
+a gdy rozdzielczosc 1920x1080 albo wieksza to "bottom right".
+
++ znaleźć tła dla screena alarmowego, jeden gdy alarm
+odlicza, i drugi gdy przerwa zakończona.
+
+- (nie) wykrywać czy Alarm.html istnieje, jak nie załadować
+Alarm.html ktory zostanie osadzony jako zasób w exe.
+
++ możliwość zmiany domyślnej przerwy z 1h na np 30 min,
+w menu kontekstowym dodać "Default timer", które ma
+podmenu a w nim: 1 hour, 45 minutes, 30 minutes, 15 minutes,
+domyślnie wybrana jest oznaczana haczykiem.
+
++ przetestuj WorkWrave: http://www.workrave.org/
+
++ dodać w menu "Default timer" a tam subdmenu z opcjami:
+1 hour, 45 minutes, 30 minutes, 15 minutes.
+
++ gdy alarm uruchomi sie w czasie uruchomienia starcrafta,
+to ustawia sie jedynie na 640 x 480, czyli rozdzielczość starcrafta,
+powinien sprawdzać timerem co 1 sekunde, czy zmienila sie
+rozdzielczosc na pulpicie i w razie czego poszerzyć okienko.
+
++ polska lokalizacja
+
++ w Help dodać info o wersji programu.
+
++ GetPolishMinutes() za 1 minutę, za 5 minut, za 22 minuty.
