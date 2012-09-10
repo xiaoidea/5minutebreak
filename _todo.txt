@@ -1,4 +1,8 @@
-﻿- opcja że gdy gramy w grę, to żeby pauzował alarm? Wykryć
+﻿- fullscreen poprzez stworzenie okna fullscreen, ukrywanie taskbara
+to zły pomysł:
+http://blogs.msdn.com/b/oldnewthing/archive/2005/05/05/414910.aspx
+
+- opcja że gdy gramy w grę, to żeby pauzował alarm? Wykryć
 czy gra w grę można po tym, że zmieniła się rozdzielczość ekranu.
 
 - w oknie alarmowym dać przycisk "I need 5 more minutes",
