@@ -20,6 +20,7 @@
 #define APP_NAME L"5 Minute Break" // This name used when adding to registry startup.
 #define TRAY_TIMER 1
 #define DEFAULT_TIMER 60 // in minutes
+#define DEBUG_TRAY_ICON 0 // Enable or disable ASSERT_EXIT for the tray icon api calls
 
 #include <ShellAPI.h>
 #include "RunAtStartup.h"
@@ -45,6 +46,7 @@ enum
 	TRAYMENU_HELP,
 	TRAYMENU_TIMER, // "Alarm is off" or "Alarm in 20 minutes"
 	TRAYMENU_5_MINUTES,
+  TRAYMENU_10_MINUTES,
 	TRAYMENU_15_MINUTES,
 	TRAYMENU_30_MINUTES,
 	TRAYMENU_45_MINUTES,
@@ -148,7 +150,8 @@ public:
 
 		if (notifyicon.hIcon) {
 			BOOL b = DestroyIcon(notifyicon.hIcon);
-			ASSERT_EXIT(b, "DestroyIcon()");
+      if (DEBUG_TRAY_ICON)
+			  ASSERT_EXIT(b, "DestroyIcon()");
 		}
 		notifyicon.hIcon = AtlLoadIconImage(IDI_RED, LR_DEFAULTCOLOR, GetSystemMetrics(SM_CXSMICON), GetSystemMetrics(SM_CYSMICON));
 		UpdateAlarmTip(NIF_ICON); // updating tip sends NIM_MODIFY
@@ -163,7 +166,8 @@ public:
 
 		if (notifyicon.hIcon) {
 			BOOL b = DestroyIcon(notifyicon.hIcon);
-			ASSERT_EXIT(b, "DestroyIcon()");
+      if (DEBUG_TRAY_ICON)
+			  ASSERT_EXIT(b, "DestroyIcon()");
 		}
 		notifyicon.hIcon = AtlLoadIconImage(IDI_BLUE, LR_DEFAULTCOLOR, GetSystemMetrics(SM_CXSMICON), GetSystemMetrics(SM_CYSMICON));
 		UpdateAlarmTip(NIF_ICON); // updating tip sends NIM_MODIFY
@@ -176,12 +180,14 @@ public:
 		if (wcscmp(notifyicon.szTip, alarmstring) != 0) {
 			wcsncpy_s(notifyicon.szTip, _countof(notifyicon.szTip), alarmstring, _TRUNCATE);
 			BOOL b = Shell_NotifyIcon(NIM_MODIFY, &notifyicon);
-			ASSERT_EXIT(b, "Shell_NotifyIcon(NIM_MODIFY)");
+      if (DEBUG_TRAY_ICON)
+			  ASSERT_EXIT(b, "Shell_NotifyIcon(NIM_MODIFY)");
 		} else {
 			if (moreflags) {
 				// icon has been modified
 				BOOL b = Shell_NotifyIcon(NIM_MODIFY, &notifyicon);
-				ASSERT_EXIT(b, "Shell_NotifyIcon(NIM_MODIFY)");
+        if (DEBUG_TRAY_ICON)
+				  ASSERT_EXIT(b, "Shell_NotifyIcon(NIM_MODIFY)");
 			}
 		}
 	}
@@ -411,7 +417,8 @@ public:
 		wcsncpy_s(notifyicon.szInfoTitle, _countof(notifyicon.szInfoTitle), title, _TRUNCATE);
 
 		BOOL b = Shell_NotifyIcon(NIM_MODIFY, &notifyicon);
-		ASSERT_EXIT(b, "Shell_NotifyIcon(NIM_MODIFY)");
+    if (DEBUG_TRAY_ICON)
+		  ASSERT_EXIT(b, "Shell_NotifyIcon(NIM_MODIFY)");
 	}
 	
 	void HideBalloon()
@@ -419,7 +426,8 @@ public:
 		notifyicon.uFlags = NIF_INFO;
 		wcsncpy_s(notifyicon.szInfo, _countof(notifyicon.szInfo), L"", _TRUNCATE);
 		BOOL b = Shell_NotifyIcon(NIM_MODIFY, &notifyicon);
-		ASSERT_EXIT(b, "Shell_NotifyIcon(NIM_MODIFY)");
+    if (DEBUG_TRAY_ICON)
+		  ASSERT_EXIT(b, "Shell_NotifyIcon(NIM_MODIFY)");
 	}
 
 	void FirstRunBalloon()
@@ -667,6 +675,13 @@ public:
 			b = InsertMenu(menu, menupos++, MF_BYPOSITION | MF_STRING, TRAYMENU_15_MINUTES, L"15 minutes");
 		}
 		ASSERT_EXIT(b, "InsertMenu(TRAYMENU_15_MINUTES)");
+
+    if (LANG_POLISH == GetLanguage()) {
+			b = InsertMenu(menu, menupos++, MF_BYPOSITION | MF_STRING, TRAYMENU_10_MINUTES, L"10 minut");
+		} else {
+			b = InsertMenu(menu, menupos++, MF_BYPOSITION | MF_STRING, TRAYMENU_10_MINUTES, L"10 minutes");
+		}
+		ASSERT_EXIT(b, "InsertMenu(TRAYMENU_10_MINUTES)");
 		
 		if (LANG_POLISH == GetLanguage()) {
 			b = InsertMenu(menu, menupos++, MF_BYPOSITION | MF_STRING, TRAYMENU_5_MINUTES, L"5 minut");
@@ -708,6 +723,8 @@ public:
 		int minutes = GetMinutes();
 		if (5 == minutes) {
 			CheckMenuItem(menu, TRAYMENU_5_MINUTES, MF_CHECKED);
+    } else if (10 == minutes) {
+			CheckMenuItem(menu, TRAYMENU_10_MINUTES, MF_CHECKED);
 		} else if (15 == minutes) {
 			CheckMenuItem(menu, TRAYMENU_15_MINUTES, MF_CHECKED);
 		} else if (30 == minutes) {
@@ -854,6 +871,10 @@ public:
 		
 		case TRAYMENU_5_MINUTES:
 			StartNewTimer(5);
+			break;
+
+    case TRAYMENU_10_MINUTES:
+			StartNewTimer(10);
 			break;
 		
 		case TRAYMENU_15_MINUTES:

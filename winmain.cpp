@@ -7,7 +7,7 @@
 #include "resource.h"
 
 // Saved in registry "InternalVersion", used to display notifications about updated application.
-#define VERSION	105
+#define VERSION	106
 
 #include "debug.h"
 
