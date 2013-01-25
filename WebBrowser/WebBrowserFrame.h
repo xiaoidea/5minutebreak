@@ -87,6 +87,7 @@ public:
         CComQIPtr<IDispatch> dispatch;
         hr = webBrowser2->get_Document(&dispatch);
         ASSERT_EXIT(SUCCEEDED(hr), "webBrowser->get_Document(&dispatch)");
+        ASSERT_EXIT(!!dispatch, "dispatch is empty");
 
         CComQIPtr<IHTMLDocument2> htmlDocument2;
         hr = dispatch->QueryInterface(IID_IHTMLDocument2, (void**) &htmlDocument2);

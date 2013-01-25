@@ -17,10 +17,10 @@
     <ROW Property="DialogBitmap" Value="dialog" MultiBuildValue="DefaultBuild:dialog.jpg" Type="1" MsiKey="DialogBitmap"/>
     <ROW Property="MSIFASTINSTALL" MultiBuildValue="DefaultBuild:7"/>
     <ROW Property="Manufacturer" Value="Czarek Tomczak" ValueLocId="*"/>
-    <ROW Property="ProductCode" Value="1033:{4F6171C8-2480-41F1-9604-90A6787B66CA} 1045:{1FEEDED2-E564-4636-BE96-B138544CB22E} " Type="16"/>
+    <ROW Property="ProductCode" Value="1033:{DD993D70-B89E-43EB-9174-4A4068674FAD} 1045:{5E2A843C-26D8-4107-B91E-2DC560CCCA42} " Type="16"/>
     <ROW Property="ProductLanguage" Value="1033"/>
     <ROW Property="ProductName" Value="5 Minute Break" ValueLocId="*"/>
-    <ROW Property="ProductVersion" Value="1.06" Type="32"/>
+    <ROW Property="ProductVersion" Value="1.07" Type="32"/>
     <ROW Property="REBOOT" MultiBuildValue="DefaultBuild:ReallySuppress"/>
     <ROW Property="RUNAPPLICATION" Value="1" Type="4"/>
     <ROW Property="SecureCustomProperties" Value="OLDPRODUCTS;AI_NEWERPRODUCTFOUND"/>

@@ -48,6 +48,8 @@ enum
 	TRAYMENU_5_MINUTES,
   TRAYMENU_10_MINUTES,
 	TRAYMENU_15_MINUTES,
+  TRAYMENU_20_MINUTES,
+  TRAYMENU_25_MINUTES,
 	TRAYMENU_30_MINUTES,
 	TRAYMENU_45_MINUTES,
 	TRAYMENU_1_HOUR,
@@ -60,6 +62,8 @@ enum
 	DEFAULTTIMER_1_HOUR,
 	DEFAULTTIMER_45_MINUTES,
 	DEFAULTTIMER_30_MINUTES,
+  DEFAULTTIMER_25_MINUTES,
+  DEFAULTTIMER_20_MINUTES,
 	DEFAULTTIMER_15_MINUTES
 };
 
@@ -545,6 +549,20 @@ public:
 		}
 		ASSERT_EXIT(b, "InsertMenu(DEFAULTTIMER_30_MINUTES)");
 
+    if (LANG_POLISH == GetLanguage()) {
+			b = InsertMenu(subtimer, menupos++, MF_BYPOSITION | MF_STRING, DEFAULTTIMER_25_MINUTES, L"25 minut");
+		} else {
+			b = InsertMenu(subtimer, menupos++, MF_BYPOSITION | MF_STRING, DEFAULTTIMER_25_MINUTES, L"25 minutes");
+		}
+		ASSERT_EXIT(b, "InsertMenu(DEFAULTTIMER_25_MINUTES)");
+
+    if (LANG_POLISH == GetLanguage()) {
+			b = InsertMenu(subtimer, menupos++, MF_BYPOSITION | MF_STRING, DEFAULTTIMER_20_MINUTES, L"20 minut");
+		} else {
+			b = InsertMenu(subtimer, menupos++, MF_BYPOSITION | MF_STRING, DEFAULTTIMER_20_MINUTES, L"20 minutes");
+		}
+		ASSERT_EXIT(b, "InsertMenu(DEFAULTTIMER_20_MINUTES)");
+
 		if (LANG_POLISH == GetLanguage()) {
 			b = InsertMenu(subtimer, menupos++, MF_BYPOSITION | MF_STRING, DEFAULTTIMER_15_MINUTES, L"15 minut");
 		} else {
@@ -562,6 +580,10 @@ public:
 			CheckMenuItem(subtimer, DEFAULTTIMER_45_MINUTES, MF_CHECKED);
 		} else if (30 == defaultTimer) {
 			CheckMenuItem(subtimer, DEFAULTTIMER_30_MINUTES, MF_CHECKED);
+    } else if (25 == defaultTimer) {
+			CheckMenuItem(subtimer, DEFAULTTIMER_25_MINUTES, MF_CHECKED);
+    } else if (20 == defaultTimer) {
+			CheckMenuItem(subtimer, DEFAULTTIMER_20_MINUTES, MF_CHECKED);
 		} else if (15 == defaultTimer) {
 			CheckMenuItem(subtimer, DEFAULTTIMER_15_MINUTES, MF_CHECKED);
 		}
@@ -669,6 +691,20 @@ public:
 		}
 		ASSERT_EXIT(b, "InsertMenu(TRAYMENU_30_MINUTES)");
 
+    if (LANG_POLISH == GetLanguage()) {
+			b = InsertMenu(menu, menupos++, MF_BYPOSITION | MF_STRING, TRAYMENU_25_MINUTES, L"25 minut");
+		} else {
+			b = InsertMenu(menu, menupos++, MF_BYPOSITION | MF_STRING, TRAYMENU_25_MINUTES, L"25 minutes");
+		}
+		ASSERT_EXIT(b, "InsertMenu(TRAYMENU_25_MINUTES)");
+
+    if (LANG_POLISH == GetLanguage()) {
+			b = InsertMenu(menu, menupos++, MF_BYPOSITION | MF_STRING, TRAYMENU_20_MINUTES, L"20 minut");
+		} else {
+			b = InsertMenu(menu, menupos++, MF_BYPOSITION | MF_STRING, TRAYMENU_20_MINUTES, L"20 minutes");
+		}
+		ASSERT_EXIT(b, "InsertMenu(TRAYMENU_20_MINUTES)");
+
 		if (LANG_POLISH == GetLanguage()) {
 			b = InsertMenu(menu, menupos++, MF_BYPOSITION | MF_STRING, TRAYMENU_15_MINUTES, L"15 minut");
 		} else {
@@ -727,10 +763,14 @@ public:
 			CheckMenuItem(menu, TRAYMENU_10_MINUTES, MF_CHECKED);
 		} else if (15 == minutes) {
 			CheckMenuItem(menu, TRAYMENU_15_MINUTES, MF_CHECKED);
+    } else if (20 == minutes) {
+			CheckMenuItem(menu, TRAYMENU_20_MINUTES, MF_CHECKED);
+    } else if (25 == minutes) {
+			CheckMenuItem(menu, TRAYMENU_25_MINUTES, MF_CHECKED);
 		} else if (30 == minutes) {
 			CheckMenuItem(menu, TRAYMENU_30_MINUTES, MF_CHECKED);
 		} else if (45 == minutes) {
-			CheckMenuItem(menu, TRAYMENU_30_MINUTES, MF_CHECKED);
+			CheckMenuItem(menu, TRAYMENU_45_MINUTES, MF_CHECKED);
 		} else if (60 == minutes) {
 			CheckMenuItem(menu, TRAYMENU_1_HOUR, MF_CHECKED);
 		} else if (120 == minutes) {
@@ -880,6 +920,14 @@ public:
 		case TRAYMENU_15_MINUTES:
 			StartNewTimer(15);
 			break;
+
+    case TRAYMENU_20_MINUTES:
+			StartNewTimer(20);
+			break;
+
+    case TRAYMENU_25_MINUTES:
+			StartNewTimer(25);
+			break;
 		
 		case TRAYMENU_30_MINUTES:
 			StartNewTimer(30);
@@ -952,6 +1000,14 @@ public:
 
 		case DEFAULTTIMER_30_MINUTES:
 			SetDefaultTimer(30);
+			break;
+
+    case DEFAULTTIMER_25_MINUTES:
+			SetDefaultTimer(25);
+			break;
+
+    case DEFAULTTIMER_20_MINUTES:
+			SetDefaultTimer(20);
 			break;
 
 		case DEFAULTTIMER_15_MINUTES:

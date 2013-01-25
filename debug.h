@@ -21,9 +21,9 @@
 
 #define DEBUG_DWORD(A) { char tmpstr[4096]; sprintf_s(tmpstr, 4096, "%lu\n\nFile: %s\nLine: %s\nFunc: %s()", A, __FILE__, STRINGIZE(__LINE__), __FUNCTION__); MessageBoxA(NULL, tmpstr, "DEBUG int", MB_ICONINFORMATION); }
 
-#define DEBUGA(A) { char tmpstr[4096]; sprintf_s(tmpstr, 4096, "%s\n\nFile: %s\nLine: %s\nFunc: %s()", A, __FILE__, STRINGIZE(__LINE__), __FUNCTION__); MessageBoxA(NULL, tmpstr, "DEBUG", MB_ICONINFORMATION); }
+#define DEBUG_ASCII(A) { char tmpstr[4096]; sprintf_s(tmpstr, 4096, "%s\n\nFile: %s\nLine: %s\nFunc: %s()", A, __FILE__, STRINGIZE(__LINE__), __FUNCTION__); MessageBoxA(NULL, tmpstr, "DEBUG", MB_ICONINFORMATION); }
 
-#define DEBUG2(A, B) { char tmpstr[4096]; sprintf_s(tmpstr, 4096, "%s\n%s\n\nFile: %s\nLine: %s\nFunc: %s()", A, B, __FILE__, STRINGIZE(__LINE__), __FUNCTION__); MessageBoxA(NULL, tmpstr, "DEBUG2", MB_ICONINFORMATION); }
+#define DEBUG_ASCII_2(A, B) { char tmpstr[4096]; sprintf_s(tmpstr, 4096, "%s\n%s\n\nFile: %s\nLine: %s\nFunc: %s()", A, B, __FILE__, STRINGIZE(__LINE__), __FUNCTION__); MessageBoxA(NULL, tmpstr, "DEBUG2", MB_ICONINFORMATION); }
 
 char* WideToAscii(wchar_t* wide)
 {
@@ -33,6 +33,6 @@ char* WideToAscii(wchar_t* wide)
 	return ascii;
 }
 
-#define DEBUGW(A) { char tmpstr[4096]; sprintf_s(tmpstr, 4096, "%s\n\nFile: %s\nLine: %s\nFunc: %s()", WideToAscii(A), __FILE__, STRINGIZE(__LINE__), __FUNCTION__); MessageBoxA(NULL, tmpstr, "DEBUG", MB_ICONINFORMATION); }
+#define DEBUG_WIDE(A) { char tmpstr[4096]; sprintf_s(tmpstr, 4096, "%s\n\nFile: %s\nLine: %s\nFunc: %s()", WideToAscii(A), __FILE__, STRINGIZE(__LINE__), __FUNCTION__); MessageBoxA(NULL, tmpstr, "DEBUG", MB_ICONINFORMATION); }
 
-#define DEBUGW2(A, B) { char tmpstr[4096]; sprintf_s(tmpstr, 4096, "%s\n%s\n\nFile: %s\nLine: %s\nFunc: %s()", WideToAscii(A), WideToAscii(B), __FILE__, STRINGIZE(__LINE__), __FUNCTION__); MessageBoxA(NULL, tmpstr, "DEBUG", MB_ICONINFORMATION); }
+#define DEBUG_WIDE_2(A, B) { char tmpstr[4096]; sprintf_s(tmpstr, 4096, "%s\n%s\n\nFile: %s\nLine: %s\nFunc: %s()", WideToAscii(A), WideToAscii(B), __FILE__, STRINGIZE(__LINE__), __FUNCTION__); MessageBoxA(NULL, tmpstr, "DEBUG", MB_ICONINFORMATION); }
