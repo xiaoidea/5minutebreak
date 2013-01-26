@@ -793,11 +793,14 @@ public:
 		CPoint pos;
 		GetCursorPos(&pos);
 
-		b = TrackPopupMenu(menu, TPM_BOTTOMALIGN, pos.x, pos.y, 0, self->m_hWnd, 0);
-		// if (!b) DEBUG_INT(GetLastError());
-		ASSERT_EXIT(b, "TrackPopupMenu()");
-		
-		self->PostMessage(WM_NULL); // google "PRB: Menus for Notification Icons Don't Work Correctly" > http://support.microsoft.com/kb/135788
+    // If TrackPopupMenu() fails nothing bad happens, the menu will 
+    // just not show, do not put ASSERT_EXIT here.
+		TrackPopupMenu(menu, TPM_BOTTOMALIGN, pos.x, pos.y, 0, self->m_hWnd, 0);
+    
+		// Google "PRB: Menus for Notification Icons Don't Work Correctly":
+    // http://support.microsoft.com/kb/135788
+    self->PostMessage(WM_NULL); 
+
 		DestroyMenu(menu);
 	}
 
