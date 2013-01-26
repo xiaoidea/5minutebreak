@@ -497,12 +497,26 @@ public:
 		subtimer = CreatePopupMenu();
 		ASSERT_EXIT(subtimer, "CreatePopupMenu() - subtimer");
 
+    if (LANG_POLISH == GetLanguage()) {
+			b = InsertMenu(subtimer, menupos++, MF_BYPOSITION | MF_STRING, DEFAULTTIMER_4_HOURS, L"4 godziny");
+		} else {
+			b = InsertMenu(subtimer, menupos++, MF_BYPOSITION | MF_STRING, DEFAULTTIMER_4_HOURS, L"4 hours");
+		}
+		ASSERT_EXIT(b, "InsertMenu(DEFAULTTIMER_4_HOURS)");
+
+    if (LANG_POLISH == GetLanguage()) {
+			b = InsertMenu(subtimer, menupos++, MF_BYPOSITION | MF_STRING, DEFAULTTIMER_3_HOURS, L"3 godziny");
+		} else {
+			b = InsertMenu(subtimer, menupos++, MF_BYPOSITION | MF_STRING, DEFAULTTIMER_3_HOURS, L"3 hours");
+		}
+		ASSERT_EXIT(b, "InsertMenu(DEFAULTTIMER_3_HOURS)");
+
 		if (LANG_POLISH == GetLanguage()) {
 			b = InsertMenu(subtimer, menupos++, MF_BYPOSITION | MF_STRING, DEFAULTTIMER_2_HOURS, L"2 godziny");
 		} else {
 			b = InsertMenu(subtimer, menupos++, MF_BYPOSITION | MF_STRING, DEFAULTTIMER_2_HOURS, L"2 hours");
 		}
-		ASSERT_EXIT(b, "InsertMenu(DEFAULTTIMER_1_HOUR)");
+		ASSERT_EXIT(b, "InsertMenu(DEFAULTTIMER_2_HOURS)");
 
 		if (LANG_POLISH == GetLanguage()) {
 			b = InsertMenu(subtimer, menupos++, MF_BYPOSITION | MF_STRING, DEFAULTTIMER_1_HOUR, L"1 godzina");
@@ -548,7 +562,11 @@ public:
 
 		int defaultTimer = GetDefaultTimer();
 
-		if (120 == defaultTimer) {
+    if (240 == defaultTimer) {
+      CheckMenuItem(subtimer, DEFAULTTIMER_4_HOURS, MF_CHECKED);
+    } else if (180 == defaultTimer) {
+			CheckMenuItem(subtimer, DEFAULTTIMER_3_HOURS, MF_CHECKED);
+    } else if (120 == defaultTimer) {
 			CheckMenuItem(subtimer, DEFAULTTIMER_2_HOURS, MF_CHECKED);
 		} else if (60 == defaultTimer) {
 			CheckMenuItem(subtimer, DEFAULTTIMER_1_HOUR, MF_CHECKED);
@@ -683,6 +701,20 @@ public:
 		b = InsertMenu(menu, menupos++, MF_BYPOSITION | MF_SEPARATOR, (UINT_PTR) 0, (LPCTSTR) 0);
 		ASSERT_EXIT(b, "InsertMenu(MF_SEPARATOR3)");
 
+    if (LANG_POLISH == GetLanguage()) {
+			b = InsertMenu(menu, menupos++, MF_BYPOSITION | MF_STRING, TRAYMENU_4_HOURS, L"4 godziny");
+		} else {
+			b = InsertMenu(menu, menupos++, MF_BYPOSITION | MF_STRING, TRAYMENU_4_HOURS, L"4 hours");
+		}
+		ASSERT_EXIT(b, "InsertMenu(TRAYMENU_4_HOURS)");
+
+    if (LANG_POLISH == GetLanguage()) {
+			b = InsertMenu(menu, menupos++, MF_BYPOSITION | MF_STRING, TRAYMENU_3_HOURS, L"3 godziny");
+		} else {
+			b = InsertMenu(menu, menupos++, MF_BYPOSITION | MF_STRING, TRAYMENU_3_HOURS, L"3 hours");
+		}
+		ASSERT_EXIT(b, "InsertMenu(TRAYMENU_3_HOURS)");
+
 		if (LANG_POLISH == GetLanguage()) {
 			b = InsertMenu(menu, menupos++, MF_BYPOSITION | MF_STRING, TRAYMENU_2_HOURS, L"2 godziny");
 		} else {
@@ -795,6 +827,10 @@ public:
 			CheckMenuItem(menu, TRAYMENU_1_HOUR, MF_CHECKED);
 		} else if (120 == minutes) {
 			CheckMenuItem(menu, TRAYMENU_2_HOURS, MF_CHECKED);
+		} else if (180 == minutes) {
+			CheckMenuItem(menu, TRAYMENU_3_HOURS, MF_CHECKED);
+		} else if (240 == minutes) {
+			CheckMenuItem(menu, TRAYMENU_4_HOURS, MF_CHECKED);
 		}
 
     EnableMenuItem(menu, TRAYMENU_ALARM_SOUND, MF_GRAYED);
@@ -975,6 +1011,14 @@ public:
 			StartNewTimer(120);
 			break;
 
+    case TRAYMENU_3_HOURS:
+			StartNewTimer(180);
+			break;
+
+    case TRAYMENU_4_HOURS:
+			StartNewTimer(240);
+			break;
+
     case ALARM_SOUND_DEFAULT:
       SetAlarmSound(ALARM_SOUND_DEFAULT);
       break;
@@ -1027,6 +1071,14 @@ public:
 			break;
 
 		// -- default timer SUBMENU
+
+    case DEFAULTTIMER_4_HOURS:
+			SetDefaultTimer(240);
+			break;
+
+    case DEFAULTTIMER_3_HOURS:
+			SetDefaultTimer(180);
+			break;
 
 		case DEFAULTTIMER_2_HOURS:
 			SetDefaultTimer(120);
