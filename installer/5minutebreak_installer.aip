@@ -17,10 +17,10 @@
     <ROW Property="DialogBitmap" Value="dialog" MultiBuildValue="DefaultBuild:dialog.jpg" Type="1" MsiKey="DialogBitmap"/>
     <ROW Property="MSIFASTINSTALL" MultiBuildValue="DefaultBuild:7"/>
     <ROW Property="Manufacturer" Value="Czarek Tomczak" ValueLocId="*"/>
-    <ROW Property="ProductCode" Value="1033:{DD993D70-B89E-43EB-9174-4A4068674FAD} 1045:{5E2A843C-26D8-4107-B91E-2DC560CCCA42} " Type="16"/>
+    <ROW Property="ProductCode" Value="1033:{27AAACF8-D2AE-4194-A9EE-76D845A36EDF} 1045:{7A47DFAF-4C6F-4DFC-BAF7-5414ABA54905} " Type="16"/>
     <ROW Property="ProductLanguage" Value="1033"/>
     <ROW Property="ProductName" Value="5 Minute Break" ValueLocId="*"/>
-    <ROW Property="ProductVersion" Value="1.07" Type="32"/>
+    <ROW Property="ProductVersion" Value="1.08" Type="32"/>
     <ROW Property="REBOOT" MultiBuildValue="DefaultBuild:ReallySuppress"/>
     <ROW Property="RUNAPPLICATION" Value="1" Type="4"/>
     <ROW Property="SecureCustomProperties" Value="OLDPRODUCTS;AI_NEWERPRODUCTFOUND"/>
@@ -45,9 +45,11 @@
     <ATTRIBUTE name="CurrentFeature" value="MainFeature"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiFilesComponent">
-    <ROW File="Alarm_en.html" Component_="Alarm.html" FileName="Alarm_~2.htm|Alarm_en.html" Attributes="0" SourcePath="5 Minute Break\Alarm_en.html" SelfReg="false"/>
+    <ROW File="Alarm_en.html" Component_="Alarm.html" FileName="Alarm_~2.htm|Alarm_en.html" Attributes="0" SourcePath="5 Minute Break\Alarm_en.html" SelfReg="false" NextFile="alarmannoying.mp3"/>
     <ROW File="Alarm_pl.html" Component_="Alarm.html" FileName="Alarm_~1.htm|Alarm_pl.html" Attributes="0" SourcePath="5 Minute Break\Alarm_pl.html" SelfReg="false" NextFile="Alarm_en.html"/>
     <ROW File="MinuteBreak.exe" Component_="MinuteBreak.exe" FileName="5Minut~1.exe|5 Minute Break.exe" Attributes="0" SourcePath="5 Minute Break\5 Minute Break.exe" SelfReg="false" NextFile="background1.jpg"/>
+    <ROW File="alarmannoying.mp3" Component_="Alarm.html" FileName="alarm-~1.mp3|alarm-annoying.mp3" Attributes="0" SourcePath="5 Minute Break\alarm-annoying.mp3" SelfReg="false" NextFile="alarmdefault.mp3"/>
+    <ROW File="alarmdefault.mp3" Component_="Alarm.html" FileName="alarm-~2.mp3|alarm-default.mp3" Attributes="0" SourcePath="5 Minute Break\alarm-default.mp3" SelfReg="false"/>
     <ROW File="background1.jpg" Component_="Alarm.html" FileName="backgr~1.jpg|background1.jpg" Attributes="0" SourcePath="5 Minute Break\background1.jpg" SelfReg="false" NextFile="background2.jpg"/>
     <ROW File="background2.jpg" Component_="Alarm.html" FileName="backgr~2.jpg|background2.jpg" Attributes="0" SourcePath="5 Minute Break\background2.jpg" SelfReg="false" NextFile="Alarm_pl.html"/>
   </COMPONENT>
