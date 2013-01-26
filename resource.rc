@@ -71,8 +71,8 @@ END
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 1,0,0,7
- PRODUCTVERSION 1,0,0,7
+ FILEVERSION 1,0,0,8
+ PRODUCTVERSION 1,0,0,8
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -89,12 +89,12 @@ BEGIN
         BEGIN
             VALUE "CompanyName", "Czarek Tomczak"
             VALUE "FileDescription", "5 Minute Break"
-            VALUE "FileVersion", "1.0.0.7"
+            VALUE "FileVersion", "1.0.0.8"
             VALUE "InternalName", "5 Minute Break"
             VALUE "LegalCopyright", "Czarek Tomczak"
             VALUE "OriginalFilename", "5 Minute Break.exe"
             VALUE "ProductName", "5 Minute Break"
-            VALUE "ProductVersion", "1.0.0.7"
+            VALUE "ProductVersion", "1.0.0.8"
         END
     END
     BLOCK "VarFileInfo"

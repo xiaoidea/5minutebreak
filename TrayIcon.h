@@ -1,4 +1,4 @@
-//
+ï»¿//
 // TrayIcon.h
 // Copyright (c) Czarek Tomczak. All rights reserved.
 //
@@ -17,7 +17,7 @@
 
 #pragma once
 
-#define APP_NAME L"5 Minute Break" // This name used when adding to registry startup.
+#include "defines.h"
 #define TRAY_TIMER 1
 #define DEFAULT_TIMER 60 // in minutes
 #define DEBUG_TRAY_ICON 0 // Enable or disable ASSERT_EXIT for the tray icon api calls
@@ -35,37 +35,8 @@
 #include "Registry.h"
 
 #include "Language.h"
-
-// This enumeration must be global, as TRAYMENU_EXIT is used in WinMain().
-enum
-{
-	WM_FIRST = WM_APP,
-	WM_TRAYICON,
-	TRAYMENU_EXIT,
-	TRAYMENU_STARTUP,
-	TRAYMENU_HELP,
-	TRAYMENU_TIMER, // "Alarm is off" or "Alarm in 20 minutes"
-	TRAYMENU_5_MINUTES,
-  TRAYMENU_10_MINUTES,
-	TRAYMENU_15_MINUTES,
-  TRAYMENU_20_MINUTES,
-  TRAYMENU_25_MINUTES,
-	TRAYMENU_30_MINUTES,
-	TRAYMENU_45_MINUTES,
-	TRAYMENU_1_HOUR,
-	TRAYMENU_2_HOURS,
-	// -- language menu
-	LANGMENU_ENGLISH,
-	LANGMENU_POLISH,
-	// -- subtimer menu
-	DEFAULTTIMER_2_HOURS,
-	DEFAULTTIMER_1_HOUR,
-	DEFAULTTIMER_45_MINUTES,
-	DEFAULTTIMER_30_MINUTES,
-  DEFAULTTIMER_25_MINUTES,
-  DEFAULTTIMER_20_MINUTES,
-	DEFAULTTIMER_15_MINUTES
-};
+#include "TrayMenu.h"
+#include "alarm-sound.h"
 
 template<class T, bool t_bHasSip = true>
 class TrayIcon
@@ -121,7 +92,7 @@ public:
 			int minutes = GetMinutes();
 			if (minutes == 1) {
 				if (LANG_POLISH == GetLanguage()) {
-					swprintf_s(alarmstring, _countof(alarmstring), L"Alarm za %i minutê", minutes);
+					swprintf_s(alarmstring, _countof(alarmstring), L"Alarm za %i minutÄ™", minutes);
 				} else {
 					swprintf_s(alarmstring, _countof(alarmstring), L"Alarm in %i minute", minutes);
 				}
@@ -136,7 +107,7 @@ public:
 			}			
 		} else {
 			if (LANG_POLISH == GetLanguage()) {
-				swprintf_s(alarmstring, _countof(alarmstring), L"%s", L"Alarm jest wy³¹czony");
+				swprintf_s(alarmstring, _countof(alarmstring), L"%s", L"Alarm jest wyÅ‚Ä…czony");
 			} else {
 				swprintf_s(alarmstring, _countof(alarmstring), L"%s", L"Alarm is off");
 			}
@@ -150,6 +121,9 @@ public:
 		// Timer may already be running - in this case reset the timer.		
 
 		alarmtime = minutes * 60;
+#ifdef DEBUG
+    alarmtime = 5;
+#endif
 		alarmtime_unix = GetUnixTimestamp();
 
 		if (notifyicon.hIcon) {
@@ -281,11 +255,13 @@ public:
 		}
 	}
 
-	void AlarmWindow()
+  void AlarmWindow()
 	{
 		if (alarmframe) {
 			return;
 		}
+
+    PlayAlarmSound();
 
 		alarmframe = new AlarmFrame<TrayIcon>(this);
 			
@@ -438,8 +414,8 @@ public:
 	{
 		if (LANG_POLISH == GetLanguage()) {
 			DisplayBalloon(L"5 Minute Break", 
-				L"Kliknij lewym przyciskiem by ustawiæ timer na 1 godzinê.\n"\
-				L"Kliknij ponownie by go wy³¹czyæ.\n"\
+				L"Kliknij lewym przyciskiem by ustawiÄ‡ timer na 1 godzinÄ™.\n"\
+				L"Kliknij ponownie by go wyÅ‚Ä…czyÄ‡.\n"\
 				L"Pod prawym przyciskiem jest menu z opcjami."
 			);
 		} else {
@@ -459,7 +435,7 @@ public:
 		major = (int) floor(newVersion / 100.0f);
 		minor = newVersion % 100;
 		if (LANG_POLISH == GetLanguage()) {
-			swprintf_s(message, _countof(message), L"Uaktualniono aplikacjê do wersji %d.%02d", major, minor);
+			swprintf_s(message, _countof(message), L"Uaktualniono aplikacjÄ™ do wersji %d.%02d", major, minor);
 		} else {
 			swprintf_s(message, _countof(message), L"Application was updated to version %d.%02d", major, minor);
 		}
@@ -472,8 +448,8 @@ public:
 		
 		if (LANG_POLISH == GetLanguage()) {
 			DisplayBalloon(L"5 Minute Break", 
-				L"Za 5 minut bêdzie przerwa.\n"\
-				L"Przygotuj siê..."
+				L"Za 5 minut bÄ™dzie przerwa.\n"\
+				L"Przygotuj siÄ™..."
 			);
 		} else {
 			DisplayBalloon(L"5 Minute Break", 
@@ -588,6 +564,43 @@ public:
 			CheckMenuItem(subtimer, DEFAULTTIMER_15_MINUTES, MF_CHECKED);
 		}
 
+    // -- subalarm MENU
+
+    HMENU subAlarmSound;
+		subAlarmSound = CreatePopupMenu();
+		ASSERT_EXIT(subAlarmSound, "CreatePopupMenu() - subAlarmSound");
+
+		if (LANG_POLISH == GetLanguage()) {
+			b = InsertMenu(subAlarmSound, menupos++, MF_BYPOSITION | MF_STRING, ALARM_SOUND_DEFAULT, L"Budzik");
+		} else {
+			b = InsertMenu(subAlarmSound, menupos++, MF_BYPOSITION | MF_STRING, ALARM_SOUND_DEFAULT, L"Alarm clock");
+		}
+		ASSERT_EXIT(b, "InsertMenu(ALARM_SOUND_DEFAULT)");
+
+    if (LANG_POLISH == GetLanguage()) {
+			b = InsertMenu(subAlarmSound, menupos++, MF_BYPOSITION | MF_STRING, ALARM_SOUND_ANNOYING, L"IrytujÄ…cy budzik");
+		} else {
+			b = InsertMenu(subAlarmSound, menupos++, MF_BYPOSITION | MF_STRING, ALARM_SOUND_ANNOYING, L"Annoying alarm clock");
+		}
+		ASSERT_EXIT(b, "InsertMenu(ALARM_SOUND_ANNOYING)");
+
+    if (LANG_POLISH == GetLanguage()) {
+			b = InsertMenu(subAlarmSound, menupos++, MF_BYPOSITION | MF_STRING, ALARM_SOUND_DISABLED, L"WyÅ‚Ä…czony");
+		} else {
+			b = InsertMenu(subAlarmSound, menupos++, MF_BYPOSITION | MF_STRING, ALARM_SOUND_DISABLED, L"Disabled");
+		}
+		ASSERT_EXIT(b, "InsertMenu(ALARM_SOUND_DISABLED)");
+
+    int alarmSound = GetAlarmSound();
+
+		if (ALARM_SOUND_DEFAULT == alarmSound) {
+			CheckMenuItem(subAlarmSound, ALARM_SOUND_DEFAULT, MF_CHECKED);
+    } else if (ALARM_SOUND_ANNOYING == alarmSound) {
+      CheckMenuItem(subAlarmSound, ALARM_SOUND_ANNOYING, MF_CHECKED);
+    } else if (ALARM_SOUND_DISABLED == alarmSound) {
+      CheckMenuItem(subAlarmSound, ALARM_SOUND_DISABLED, MF_CHECKED);
+    }
+
 		// -- sublang MENU
 
 		HMENU sublang;
@@ -617,7 +630,7 @@ public:
 		menupos = 0;
 		
 		if (LANG_POLISH == GetLanguage()) {
-			b = InsertMenu(menu, menupos++, MF_BYPOSITION | MF_STRING, TRAYMENU_EXIT, L"Zakoñcz");
+			b = InsertMenu(menu, menupos++, MF_BYPOSITION | MF_STRING, TRAYMENU_EXIT, L"ZakoÅ„cz");
 		} else {
 			b = InsertMenu(menu, menupos++, MF_BYPOSITION | MF_STRING, TRAYMENU_EXIT, L"Exit");
 		}
@@ -634,18 +647,25 @@ public:
 		ASSERT_EXIT(b, "InsertMenu(TRAYMENU_STARTUP)");
 
 		if (LANG_POLISH == GetLanguage()) {
-			b = InsertMenu(menu, menupos++, MF_BYPOSITION | MF_STRING | MF_POPUP, (UINT_PTR) sublang, L"Jêzyk");
+			b = InsertMenu(menu, menupos++, MF_BYPOSITION | MF_STRING | MF_POPUP, (UINT_PTR) sublang, L"JÄ™zyk");
 		} else {
 			b = InsertMenu(menu, menupos++, MF_BYPOSITION | MF_STRING | MF_POPUP, (UINT_PTR) sublang, L"Language");
 		}
 		ASSERT_EXIT(b, "InsertMenu(Default timer)");
 
 		if (LANG_POLISH == GetLanguage()) {
-			b = InsertMenu(menu, menupos++, MF_BYPOSITION | MF_STRING | MF_POPUP, (UINT_PTR) subtimer, L"Domyœlny timer");
+			b = InsertMenu(menu, menupos++, MF_BYPOSITION | MF_STRING | MF_POPUP, (UINT_PTR) subtimer, L"DomyÅ›lny timer");
 		} else {
 			b = InsertMenu(menu, menupos++, MF_BYPOSITION | MF_STRING | MF_POPUP, (UINT_PTR) subtimer, L"Default timer");
 		}
 		ASSERT_EXIT(b, "InsertMenu(Default timer)");		
+
+    if (LANG_POLISH == GetLanguage()) {
+			b = InsertMenu(menu, menupos++, MF_BYPOSITION | MF_STRING | MF_POPUP, (UINT_PTR) subAlarmSound, L"DÅºwiÄ™k alarmu");
+		} else {
+			b = InsertMenu(menu, menupos++, MF_BYPOSITION | MF_STRING | MF_POPUP, (UINT_PTR) subAlarmSound, L"Alarm sound");
+		}
+		ASSERT_EXIT(b, "InsertMenu(TRAYMENU_ALARM_SOUND)");
 
 		if (LANG_POLISH == GetLanguage()) {
 			b = InsertMenu(menu, menupos++, MF_BYPOSITION | MF_STRING, TRAYMENU_HELP, L"Pomoc");
@@ -659,7 +679,7 @@ public:
 
 		b = InsertMenu(menu, menupos++, MF_BYPOSITION | MF_STRING, TRAYMENU_TIMER, GetAlarmString());
 		ASSERT_EXIT(b, "InsertMenu(TRAYMENU_TIMER)");
-		
+
 		b = InsertMenu(menu, menupos++, MF_BYPOSITION | MF_SEPARATOR, (UINT_PTR) 0, (LPCTSTR) 0);
 		ASSERT_EXIT(b, "InsertMenu(MF_SEPARATOR3)");
 
@@ -754,8 +774,8 @@ public:
 		if (IsRunningAtStartup(APP_NAME)) {
 			CheckMenuItem(menu, TRAYMENU_STARTUP, MF_CHECKED);
 		}
-		EnableMenuItem(menu, TRAYMENU_TIMER, MF_GRAYED);
-
+		
+    EnableMenuItem(menu, TRAYMENU_TIMER, MF_GRAYED);
 		int minutes = GetMinutes();
 		if (5 == minutes) {
 			CheckMenuItem(menu, TRAYMENU_5_MINUTES, MF_CHECKED);
@@ -776,6 +796,16 @@ public:
 		} else if (120 == minutes) {
 			CheckMenuItem(menu, TRAYMENU_2_HOURS, MF_CHECKED);
 		}
+
+    EnableMenuItem(menu, TRAYMENU_ALARM_SOUND, MF_GRAYED);
+    int alarmSound = GetAlarmSound();
+    if (ALARM_SOUND_DEFAULT == alarmSound) {
+      CheckMenuItem(menu, ALARM_SOUND_DEFAULT, MF_CHECKED);
+    } else if (ALARM_SOUND_ANNOYING == alarmSound) {
+      CheckMenuItem(menu, ALARM_SOUND_ANNOYING, MF_CHECKED);
+    } else if (ALARM_SOUND_DISABLED == alarmSound) {
+      CheckMenuItem(menu, ALARM_SOUND_DISABLED, MF_CHECKED);
+    }
 	}
 
 	void CreateTrayIcon()
@@ -821,10 +851,10 @@ public:
 			msg.hInstance = __Module.m_hInst;			
 			
 			if (LANG_POLISH == GetLanguage()) {
-				msg.lpszText = L"Nie uda³o siê utworzyæ ikony programu w zasobniku systemowym (obszar powiadomieñ).\n\n"\
-					L"Funkcje programu zosta³y ograniczone, prawdopodobnie przez program antywirusowy\n"\
-					L"(u¿ywasz Avasta?). Ustaw odpowiednie uprawnienia dla 5 Minute Break (dodaj wyj¹tek\n"
-					L"w AutoSandbox jeœli u¿ywasz Avasta) i uruchom program ponownie.";
+				msg.lpszText = L"Nie udaÅ‚o siÄ™ utworzyÄ‡ ikony programu w zasobniku systemowym (obszar powiadomieÅ„).\n\n"\
+					L"Funkcje programu zostaÅ‚y ograniczone, prawdopodobnie przez program antywirusowy\n"\
+					L"(uÅ¼ywasz Avasta?). Ustaw odpowiednie uprawnienia dla 5 Minute Break (dodaj wyjÄ…tek\n"
+					L"w AutoSandbox jeÅ›li uÅ¼ywasz Avasta) i uruchom program ponownie.";
 			} else {
 				msg.lpszText = L"Could not create program icon in system tray (notification area).\n\n"\
 					L"Program features have been limited, probably by an antivirus program (using Avast?).\n"\
@@ -944,6 +974,18 @@ public:
 		case TRAYMENU_2_HOURS:
 			StartNewTimer(120);
 			break;
+
+    case ALARM_SOUND_DEFAULT:
+      SetAlarmSound(ALARM_SOUND_DEFAULT);
+      break;
+
+    case ALARM_SOUND_ANNOYING:
+      SetAlarmSound(ALARM_SOUND_ANNOYING);
+      break;
+
+    case ALARM_SOUND_DISABLED:
+      SetAlarmSound(ALARM_SOUND_DISABLED);
+      break;
 		
 		case TRAYMENU_HELP:
 			HelpWindow();

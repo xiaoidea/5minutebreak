@@ -7,16 +7,16 @@
 #include "resource.h"
 
 // Saved in registry "InternalVersion", used to display notifications about updated application.
-#define VERSION	107
+#define VERSION	108
 
 #include "debug.h"
 
 //#include "SingleInstance.h"
 #include "Process.h"
 #include "ExecutablePath.h"
-
 #include "MainFrame.h"
 #include "WebBrowser/InternetFeatures.h"
+#include "TrayMenu.h"
 
 CAppModule __Module;
 

@@ -57,6 +57,7 @@
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <AdditionalIncludeDirectories>.\..\wtl81\Include\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -127,13 +128,20 @@ rename "$(TargetDir)5 Minute Break.exe" "5 Minute Break Dev.exe"
     <None Include="todo.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="alarm-sound.cpp" />
+    <ClCompile Include="debug.cpp" />
+    <ClCompile Include="ExecutablePath.cpp" />
+    <ClCompile Include="Registry.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="winmain.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="alarm-sound.h" />
     <ClInclude Include="AlarmFrame.h" />
+    <ClInclude Include="defines.h" />
+    <ClInclude Include="TrayMenu.h" />
     <ClInclude Include="WebBrowser\ClickEvents.h" />
     <ClInclude Include="debug.h" />
     <ClInclude Include="WebBrowser\DocHostUIHandlerDispatch.h" />
@@ -164,7 +172,9 @@ rename "$(TargetDir)5 Minute Break.exe" "5 Minute Break Dev.exe"
     <ClInclude Include="WinVersion.h" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="resource.rc" />
+    <ResourceCompile Include="resource.rc">
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\..\wtl81\Include\</AdditionalIncludeDirectories>
+    </ResourceCompile>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
