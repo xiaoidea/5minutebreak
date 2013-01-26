@@ -14,28 +14,28 @@ class SingleInstance
 
 protected:
 
-	DWORD lasterror;
-	HANDLE mutex;
+    DWORD lasterror;
+    HANDLE mutex;
 
 public:
 
-	SingleInstance(TCHAR* mutexname)
-	{
-		mutex = CreateMutex(NULL, FALSE, mutexname);
-		lasterror = GetLastError();
-	}
+    SingleInstance(TCHAR* mutexname)
+    {
+        mutex = CreateMutex(NULL, FALSE, mutexname);
+        lasterror = GetLastError();
+    }
 
-	~SingleInstance()
-	{
-		if (mutex) {
-			CloseHandle(mutex);
-			mutex = NULL;
-		}
-	}
+    ~SingleInstance()
+    {
+        if (mutex) {
+            CloseHandle(mutex);
+            mutex = NULL;
+        }
+    }
 
-	BOOL IsRunning()
-	{
-		return (ERROR_ALREADY_EXISTS == lasterror);
-	}
+    BOOL IsRunning()
+    {
+        return (ERROR_ALREADY_EXISTS == lasterror);
+    }
 
 };

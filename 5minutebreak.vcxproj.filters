@@ -33,11 +33,20 @@
     <None Include="background2.jpg">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include=".hgignore" />
     <None Include="Alarm_pl.html" />
     <None Include="Help_en.html" />
     <None Include="Help_pl.html" />
-    <None Include="todo.txt" />
+    <None Include="close1.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="close2.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="alarm-annoying.mp3" />
+    <None Include="alarm-default.mp3" />
+    <None Include="_todo.txt" />
+    <None Include="_beforerelease.txt" />
+    <None Include=".gitignore" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">

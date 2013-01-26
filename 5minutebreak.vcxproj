@@ -109,13 +109,17 @@ rename "$(TargetDir)5 Minute Break.exe" "5 Minute Break Dev.exe"
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <None Include=".gitignore" />
+    <None Include="alarm-annoying.mp3" />
+    <None Include="alarm-default.mp3" />
+    <None Include="close1.png" />
+    <None Include="close2.png" />
     <None Include="kill_dev_exe.bat" />
     <None Include="icons\alarm.ico" />
     <None Include="icons\alarmblue.ico" />
     <None Include="icons\alarmred.ico" />
     <None Include="background1.jpg" />
     <None Include="background2.jpg" />
-    <None Include=".hgignore" />
     <CustomBuild Include="Alarm_en.html">
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </Command>
@@ -124,8 +128,11 @@ rename "$(TargetDir)5 Minute Break.exe" "5 Minute Break Dev.exe"
     </CustomBuild>
     <None Include="Alarm_pl.html" />
     <None Include="Help_en.html" />
-    <None Include="Help_pl.html" />
-    <None Include="todo.txt" />
+    <None Include="Help_pl.html">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="_beforerelease.txt" />
+    <None Include="_todo.txt" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="alarm-sound.cpp" />

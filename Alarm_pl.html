@@ -1,110 +1,116 @@
 ﻿<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-	<meta charset=utf-8>
-	<style>
-	html { overflow: auto; cursor: default; height: 100%; }
-	body { margin: 0; padding: 0; cursor: default; height: 100%; }
-	.message { font: 28px Arial; line-height: 1.4em; }
-	.break { font: bold 32px Arial; }
-	.timer, .timerblack, .timergreen { font: bold 64px Arial; color: red; }
-	.timerblack { color: black; }
-	.timergreen { color: green; }
-	.endofbreak { position: absolute;  bottom: 2em; width: 100%; text-align: center; }
-	.newtimer { font: 17px Arial; padding: 0.25em 0em; }
-	.info { font: 12px Arial; }
-	a, a:visited { color: blue; }
-	</style>
+    <meta charset=utf-8>
+    <style>
+    html { overflow: auto; cursor: default; height: 100%; }
+    body { margin: 0; padding: 0; cursor: default; height: 100%; }
+    .message { font: 28px Arial; line-height: 1.4em; }
+    .break { font: bold 32px Arial; }
+    .timer, .timerblack, .timergreen { font: bold 64px Arial; color: red; }
+    .timerblack { color: black; }
+    .timergreen { color: green; }
+    .endofbreak { position: absolute;  bottom: 2em; width: 100%; text-align: center; }
+    .newtimer { font: 17px Arial; padding: 0.25em 0em; }
+    .info { font: 12px Arial; }
+    .close { cursor: pointer; position: absolute; top: 16px; right: 16px; }
+    a, a:visited { color: blue; }
+    </style>
 </head>
 <body onselectstart="return false;">
 
 <table width=100% height=100% cellspacing=0 cellpadding=0 border=0>
 <tr><td align=center valign=middle>
 
-	<div class=message id=message1>
-		Wstań z krzesła i zrób sobie <span class=break>5 minut przerwy</span> od komputera!<br />
-		W przeciwnym razie twoje oczy i organizm ucierpią...
-	</div>
+    <img class=close src="close1.png"
+        onmouseover="this.src='close2.png'"
+        onmouseout="this.src='close1.png'"
+        onclick="window.external.CloseWindow()">
 
-	<div class=message id=message2 style="display: none;">
-		5 minut już minęło, <span class=break>koniec przerwy!</span><br />
-		Możesz usiąść z powrotem do komputera.
-	</div>
+    <div class=message id=message1>
+        Wstań z krzesła i zrób sobie <span class=break>5 minut przerwy</span> od komputera!<br />
+        W przeciwnym razie twoje oczy i organizm ucierpią...
+    </div>
 
-	<br><br>
+    <div class=message id=message2 style="display: none;">
+        5 minut już minęło, <span class=break>koniec przerwy!</span><br />
+        Możesz usiąść z powrotem do komputera.
+    </div>
 
-	<div class=timer id=timer></div>
+    <br><br>
+
+    <div class=timer id=timer></div>
 
 </td></tr>
 </table>
 
 <div class=endofbreak>
 
-	<div>
-		<input type=button class=newtimer id=newtimer value="Uruchom nowy timer" style="visibility: hidden;" 
-			onclick="window.external.StartNewTimer()">
-	</div>
+    <div>
+        <input type=button class=newtimer id=newtimer value="Uruchom nowy timer" style="visibility: hidden;"
+            onclick="window.external.StartNewTimer()">
+    </div>
 
-	<br><br>
+    <br><br>
 
-	<div class=info id=FiveMoreMinutes>
-		Zamknij okno, potrzebuję <a href="javascript:void(0)" onclick="window.external.FiveMoreMinutes()">jeszcze 5 minut</a>
-	</div>
+    <div class=info id=FiveMoreMinutes>
+        Zamknij okno, potrzebuję <a href="javascript:void(0)" onclick="window.external.FiveMoreMinutes()">jeszcze 5 minut</a>
+    </div>
 
 </div>
 
 <script>
 
-	var TIMER = 5;
+    var TIMER = 5;
 
-	function countdown()
-	{
-		__current--;
-		if (__current <= 0)
-			__endofbreak = true;
+    function countdown()
+    {
+        __current--;
+        if (__current <= 0)
+            __endofbreak = true;
 
-		updatetimer();
+        updatetimer();
 
-		if (__endofbreak)
-			document.getElementById("timer").className = "timergreen";
-		if (__current == 0)
-			document.getElementById("timer").className = "timerblack";
-		if (__current < 0) {
-			document.getElementById("message1").style.display = "none";
-			document.getElementById("message2").style.display = "block";
-			document.getElementById("newtimer").style.visibility = "visible";
-			document.getElementById("FiveMoreMinutes").style.visibility = "hidden";
-			setbackground(2);
-		}
-	}
+        if (__endofbreak)
+            document.getElementById("timer").className = "timergreen";
+        if (__current == 0)
+            document.getElementById("timer").className = "timerblack";
+        if (__current < 0) {
+            document.getElementById("message1").style.display = "none";
+            document.getElementById("message2").style.display = "block";
+            document.getElementById("newtimer").style.visibility = "visible";
+            document.getElementById("FiveMoreMinutes").style.visibility = "hidden";
+            setbackground(2);
+        }
+    }
 
-	function updatetimer()
-	{
-		var minutes = Math.floor(Math.abs(__current) / 60);
-		var seconds = Math.abs(__current) % 60;
-		if (minutes < 10)
-			minutes = "0"+String(minutes);
-		if (seconds < 10)
-			seconds = "0"+String(seconds);
+    function updatetimer()
+    {
+        var minutes = Math.floor(Math.abs(__current) / 60);
+        var seconds = Math.abs(__current) % 60;
+        if (minutes < 10)
+            minutes = "0"+String(minutes);
+        if (seconds < 10)
+            seconds = "0"+String(seconds);
 
-		var plus = "";
-		document.getElementById("timer").innerHTML = minutes+":"+seconds;
-	}
+        var plus = "";
+        document.getElementById("timer").innerHTML = minutes+":"+seconds;
+    }
 
-	function setbackground(n)
-	{
-		if (window.screen.width < 1920) {
-			document.body.style.background = 'url("background'+n+'.jpg") center center no-repeat';
-		} else {
-			document.body.style.background = 'url("background'+n+'.jpg") bottom right no-repeat';
-		}
-	}
+    function setbackground(n)
+    {
+        if (window.screen.width < 1920) {
+            document.body.style.background = 'url("background'+n+'.jpg") center center no-repeat';
+        } else {
+            document.body.style.background = 'url("background'+n+'.jpg") bottom right no-repeat';
+        }
+    }
 
-	var __current = TIMER * 60; // in seconds
-	var __endofbreak = false;
-	setbackground(1);
-	updatetimer();
-	window.setInterval(countdown, 1000);
+    var __current = TIMER * 60; // in seconds
+    var __endofbreak = false;
+    setbackground(1);
+    updatetimer();
+    window.setInterval(countdown, 1000);
 
 </script>
 

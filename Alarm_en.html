@@ -13,6 +13,7 @@
 	.endofbreak { position: absolute;  bottom: 2em; width: 100%; text-align: center; }
 	.newtimer { font: 17px Arial; padding: 0.25em 0em; }
 	.info { font: 12px Arial; }
+	.close { cursor: pointer; position: absolute; top: 16px; right: 16px; }
 	a, a:visited { color: blue; }
 	</style>
 </head>
@@ -20,6 +21,11 @@
 
 <table width=100% height=100% cellspacing=0 cellpadding=0 border=0>
 <tr><td align=center valign=middle>
+
+	<img class=close src="close1.png"
+		onmouseover="this.src='close2.png'"
+		onmouseout="this.src='close1.png'"
+		onclick="window.external.CloseWindow()">
 
 	<div class=message id=message1>
 		Stand up and make a <span class=break>5 minute break</span> away from your computer!<br>

@@ -17,10 +17,10 @@
     <ROW Property="DialogBitmap" Value="dialog" MultiBuildValue="DefaultBuild:dialog.jpg" Type="1" MsiKey="DialogBitmap"/>
     <ROW Property="MSIFASTINSTALL" MultiBuildValue="DefaultBuild:7"/>
     <ROW Property="Manufacturer" Value="Czarek Tomczak" ValueLocId="*"/>
-    <ROW Property="ProductCode" Value="1033:{27AAACF8-D2AE-4194-A9EE-76D845A36EDF} 1045:{7A47DFAF-4C6F-4DFC-BAF7-5414ABA54905} " Type="16"/>
+    <ROW Property="ProductCode" Value="1033:{23DBD728-C5A6-4B00-A1C2-E4B7637EDF03} 1045:{6416251F-3391-438F-ACF6-8F8E495C2185} " Type="16"/>
     <ROW Property="ProductLanguage" Value="1033"/>
     <ROW Property="ProductName" Value="5 Minute Break" ValueLocId="*"/>
-    <ROW Property="ProductVersion" Value="1.08" Type="32"/>
+    <ROW Property="ProductVersion" Value="1.10" Type="32"/>
     <ROW Property="REBOOT" MultiBuildValue="DefaultBuild:ReallySuppress"/>
     <ROW Property="RUNAPPLICATION" Value="1" Type="4"/>
     <ROW Property="SecureCustomProperties" Value="OLDPRODUCTS;AI_NEWERPRODUCTFOUND"/>
@@ -49,9 +49,11 @@
     <ROW File="Alarm_pl.html" Component_="Alarm.html" FileName="Alarm_~1.htm|Alarm_pl.html" Attributes="0" SourcePath="5 Minute Break\Alarm_pl.html" SelfReg="false" NextFile="Alarm_en.html"/>
     <ROW File="MinuteBreak.exe" Component_="MinuteBreak.exe" FileName="5Minut~1.exe|5 Minute Break.exe" Attributes="0" SourcePath="5 Minute Break\5 Minute Break.exe" SelfReg="false" NextFile="background1.jpg"/>
     <ROW File="alarmannoying.mp3" Component_="Alarm.html" FileName="alarm-~1.mp3|alarm-annoying.mp3" Attributes="0" SourcePath="5 Minute Break\alarm-annoying.mp3" SelfReg="false" NextFile="alarmdefault.mp3"/>
-    <ROW File="alarmdefault.mp3" Component_="Alarm.html" FileName="alarm-~2.mp3|alarm-default.mp3" Attributes="0" SourcePath="5 Minute Break\alarm-default.mp3" SelfReg="false"/>
+    <ROW File="alarmdefault.mp3" Component_="Alarm.html" FileName="alarm-~2.mp3|alarm-default.mp3" Attributes="0" SourcePath="5 Minute Break\alarm-default.mp3" SelfReg="false" NextFile="close1.png"/>
     <ROW File="background1.jpg" Component_="Alarm.html" FileName="backgr~1.jpg|background1.jpg" Attributes="0" SourcePath="5 Minute Break\background1.jpg" SelfReg="false" NextFile="background2.jpg"/>
     <ROW File="background2.jpg" Component_="Alarm.html" FileName="backgr~2.jpg|background2.jpg" Attributes="0" SourcePath="5 Minute Break\background2.jpg" SelfReg="false" NextFile="Alarm_pl.html"/>
+    <ROW File="close1.png" Component_="Alarm.html" FileName="close1.png" Attributes="0" SourcePath="5 Minute Break\close1.png" SelfReg="false" NextFile="close2.png"/>
+    <ROW File="close2.png" Component_="Alarm.html" FileName="close2.png" Attributes="0" SourcePath="5 Minute Break\close2.png" SelfReg="false"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.BuildComponent">
     <ROW BuildKey="DefaultBuild" BuildName="DefaultBuild" BuildOrder="1" BuildType="0" Languages="en;pl" LangOpt="1" InstallationType="4" ExtUI="true"/>
